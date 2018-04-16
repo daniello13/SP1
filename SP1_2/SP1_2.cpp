@@ -29,18 +29,20 @@ int main(int argc, char* argv[])
 {
 	setlocale(LC_CTYPE, "rus");
 	char mod[3];
-	if (argc != 2) {
-		printf("Error: found %d arguments. Needs 1", argc - 1);
+	if (argc != 3) {
+		printf("Error: found %d arguments. Needs 2", argc - 1);
 		exit(1);
 	}
 	strcpy(mod, argv[1]);
+	char* FileName = (char*)malloc(strlen(argv[2])*sizeof(char));
+	strcpy(FileName, argv[2]);
 	/*
 		Преобразование в UTF-8 из OEM 866
 		Если файл изначально весил 50 байт, после этого дела он будет весить 100 Б
 
 	*/
 	if (strcmp(mod, "-a") == 0) {
-		wifstream in("E:\\Learning\\SP\\SP1\\x64\\Debug\\beginOEM866endUTF8.txt");
+		wifstream in(FileName);
 		wstring line, all_text;
 		in.imbue(locale("rus_rus.866"));
 		if (in.is_open())
@@ -53,7 +55,7 @@ int main(int argc, char* argv[])
 		}
 		in.close(); // закрываем файл
 		string answer = utf8_encode(all_text);
-		ofstream fout("E:\\Learning\\SP\\SP1\\x64\\Debug\\beginOEM866endUTF8.txt", ios::trunc);
+		ofstream fout(FileName, ios::trunc);
 		fout.imbue(locale("rus_rus.866"));
 		fout << answer;
 		fout.close();
@@ -66,9 +68,9 @@ int main(int argc, char* argv[])
 		Если файл изначально весил 100 байт, после этого он будет весить 50 Б
 	*/
 	
-	if (strcmp(mod, "-u") == 0) {
+	else if (strcmp(mod, "-u") == 0) {
 
-		ifstream in("E:\\Learning\\SP\\SP1\\x64\\Debug\\beginUTF8endOEM866.txt");
+		ifstream in(FileName);
 		string line, all_text = "";
 
 		if (in.is_open())
@@ -86,11 +88,13 @@ int main(int argc, char* argv[])
 		strcpy(alt, all_text.c_str());
 		line = (const char*)alt;
 		wstring wide = utf8_decode(line);
-		wofstream fout("E:\\Learning\\SP\\SP1\\x64\\Debug\\beginUTF8endOEM866.txt", ios::trunc);
+		wofstream fout(FileName, ios::trunc);
 		fout.imbue(locale("rus_rus.866"));
 		fout << wide;
 		fout.close();
 	}
-	
+	else {
+		cout << "Неверный ключ" << endl;
+	}
 	return 0;
 }

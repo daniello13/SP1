@@ -1,3 +1,3 @@
 ﻿  SP1_2.cpp
-e:\learning\sp\sp1\sp1_2\sp1_2.cpp(83): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+e:\learning\sp\sp1\sp1_2\sp1_2.cpp(85): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
   SP1_2.vcxproj -> E:\Learning\SP\SP1\x64\Debug\SP1_2.exe

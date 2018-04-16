@@ -44,7 +44,7 @@ int main(int argc, char **argv) {
 		LocalFree(cstr);
 	}
 	
-	if (strcmp(mod, "-s") == 0) {
+	else if (strcmp(mod, "-s") == 0) {
 		// по всякому измываемся над получением инфы о системе
 		MEMORYSTATUS lpBuffer;
 		lpBuffer.dwLength = sizeof(lpBuffer);
@@ -67,6 +67,9 @@ int main(int argc, char **argv) {
 		printf("  Minimum application address: %lx\n",sys.lpMinimumApplicationAddress);
 		printf("  Maximum application address: %lx\n",sys.lpMaximumApplicationAddress);
 		printf("  Active processor mask: %u\n",sys.dwActiveProcessorMask);
+	}
+	else {
+		printf("Неизвестный ключ \n");
 	}
 	//system("pause");
 }
